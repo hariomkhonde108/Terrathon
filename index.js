@@ -7,5 +7,7 @@ import App from './App';
 import { name as appName } from './app.json'; 
 // import './polyfills';
 // rest of your index.js
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 
 AppRegistry.registerComponent(appName, () => App);

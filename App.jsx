@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import CameraScreen from './src/screens/CameraScreen';
+import ProductDetailScreen from './src/screens/ProductDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,11 @@ export default function App() {
           name="Camera" 
           component={CameraScreen} 
           options={{ title: 'Scan Code' }}
+        />
+        <Stack.Screen 
+          name="ProductDetail" 
+          component={ProductDetailScreen} 
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

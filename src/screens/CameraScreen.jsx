@@ -16,23 +16,51 @@ export default function CameraScreen({ navigation }) {
     })();
   }, []);
 
-  const onCodeScanned = useCallback((codes) => {
+  const onCodeScanned = useCallback(async (codes) => {
     if (codes.length > 0) {
       setIsScanning(false);
-      Alert.alert(
-        'Barcode Found!',
-        `Type: ${codes[0].type}\nValue: ${codes[0].value}`,
-        [
-          {
-            text: 'Scan Again',
-            onPress: () => setIsScanning(true),
-          },
-          {
-            text: 'OK',
-            style: 'cancel',
-          },
-        ]
-      );
+      const barcode = codes[0].value;
+      try {
+        const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
+        const data = await response.json();
+
+        if (data.status === 1 && data.product) {
+          const productName = data.product.product_name || 'Unknown Product';
+          const ecoscore = data.product.ecoscore_grade || 'N/A';
+          Alert.alert(
+            'Product Info',
+            `Name: ${productName}\nEco-Score: ${ecoscore.toUpperCase()}`,
+            [
+              {
+                text: 'Scan Again',
+                onPress: () => setIsScanning(true),
+              },
+              {
+                text: 'OK',
+                style: 'cancel',
+              },
+            ]
+          );
+        } else {
+          Alert.alert(
+            'Product Not Found',
+            `Barcode: ${barcode}`,
+            [
+              {
+                text: 'Scan Again',
+                onPress: () => setIsScanning(true),
+              },
+              {
+                text: 'OK',
+                style: 'cancel',
+              },
+            ]
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching product info:', error);
+        Alert.alert('Error', 'Could not fetch product data. Try again.');
+      }
     }
   }, []);
 
@@ -175,4 +203,4 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
     borderColor: 'white',
   },
-}); 
+});
