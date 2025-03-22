@@ -7,7 +7,8 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   SafeAreaView, 
-  StatusBar 
+  StatusBar,
+  ImageBackground 
 } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
@@ -29,7 +30,11 @@ export default function HomeScreen({ navigation }) {
       <ScrollView style={styles.scrollView}>
         {/* Hero Banner */}
         <View style={styles.heroBanner}>
-          <View style={styles.heroImage} />
+          <ImageBackground 
+            source={require('../Images/heroimage.jpg')}
+            style={styles.heroImage}
+            resizeMode="cover"
+          />
           <View style={styles.heroOverlay}>
             <Text style={styles.heroTitle}>let's go green</Text>
             <Text style={styles.heroSubtitle}>Trust the process when we aprove</Text>
@@ -43,39 +48,54 @@ export default function HomeScreen({ navigation }) {
           
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.productsScroll}>
             {/* Product 1 */}
-            <View style={styles.productCard}>
-              <View style={styles.productImageContainer}>
-                <View style={styles.productImage} />
-              </View>
-              <Text style={styles.productTitle}>xyz</Text>
-              <Text style={styles.productSubtitle}>dummy</Text>
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('NutriScore')}>
+  <View style={styles.productCard}>
+    <View style={styles.productImageContainer}>
+      <Image 
+        source={require('../Images/best_nutri_score.jpg')}
+        style={styles.productImage}
+        resizeMode="cover"
+      />
+    </View>
+    <Text style={styles.productTitle}>Products with the best Nutri score</Text>
+  </View>
+</TouchableOpacity>
+
             
-            {/* Product 2 */}
-            <View style={styles.productCard}>
-              <View style={styles.productImageContainer}>
-                <View style={styles.productImage} />
-              </View>
-              <Text style={styles.productTitle}>skin care</Text>
-              <Text style={styles.productSubtitle}>dummy</Text>
-            </View>
-            
+<TouchableOpacity onPress={() => navigation.navigate('Green')}>
+  <View style={styles.productCard}>
+    <View style={styles.productImageContainer}>
+      <Image 
+        source={require('../Images/best_green_score.jpg')}
+        style={styles.productImage}
+        resizeMode="cover"
+      />
+    </View>
+    <Text style={styles.productTitle}>Products with the best Green score</Text>
+  </View>
+</TouchableOpacity>
             {/* Product 3 */}
             <View style={styles.productCard}>
               <View style={styles.productImageContainer}>
-                <View style={styles.productImage} />
+                <Image 
+                  source={require('../Images/sustaniable_image.jpg')}
+                  style={styles.productImage}
+                  resizeMode="cover"
+                />
               </View>
-              <Text style={styles.productTitle}>Food products</Text>
-              <Text style={styles.productSubtitle}>dummy</Text>
+              <Text style={styles.productTitle}>Compostable & Biodegradable Items</Text>
             </View>
             
             {/* Product 4 */}
             <View style={styles.productCard}>
               <View style={styles.productImageContainer}>
-                <View style={styles.productImage} />
+                <Image 
+                  source={require('../Images/most_scanned.jpeg')}
+                  style={styles.productImage}
+                  resizeMode="cover"
+                />
               </View>
-              <Text style={styles.productTitle}>F</Text>
-              <Text style={styles.productSubtitle}>B</Text>
+              <Text style={styles.productTitle}>Most scanned products</Text>
             </View>
           </ScrollView>
         </View>
@@ -86,9 +106,12 @@ export default function HomeScreen({ navigation }) {
           
           <View style={styles.categoryContainer}>
             {/* Category 1 */}
-            <View style={styles.categoryCard}>
-              <Text style={styles.categoryText}>Category</Text>
-            </View>
+            <TouchableOpacity 
+              style={styles.categoryCard}
+              onPress={() => navigation.navigate('MainProducts')}
+            >
+              <Text style={styles.categoryText}>All Products</Text>
+            </TouchableOpacity>
             
             {/* Category 2 */}
             <View style={styles.categoryCard}>
@@ -153,7 +176,6 @@ const styles = StyleSheet.create({
   heroImage: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#4CAF50', // Green color as placeholder
   },
   heroOverlay: {
     position: 'absolute',
@@ -163,7 +185,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   heroTitle: {
     color: 'white',
@@ -208,7 +230,6 @@ const styles = StyleSheet.create({
   productImage: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#ddd',
   },
   productTitle: {
     fontSize: 14,

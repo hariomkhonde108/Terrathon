@@ -84,8 +84,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", "false"
         buildConfigField "boolean", "VisionCamera_enableFrameProcessors", "false"
         buildConfigField "boolean", "VisionCamera_enableCodeScanner", "true"
+        missingDimensionStrategy 'react-native-camera', 'general'
     }
     signingConfigs {
         debug {
