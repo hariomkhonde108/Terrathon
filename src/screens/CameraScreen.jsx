@@ -9,9 +9,7 @@ export default function CameraScreen({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      console.log('Requesting camera permission...');
       const permission = await Camera.requestCameraPermission();
-      console.log('Camera permission status:', permission);
       setHasPermission(permission === 'granted');
     })();
   }, []);
@@ -25,22 +23,25 @@ export default function CameraScreen({ navigation }) {
         const data = await response.json();
 
         if (data.status === 1 && data.product) {
-          const productName = data.product.product_name || 'Unknown Product';
-          const ecoscore = data.product.ecoscore_grade || 'N/A';
-          Alert.alert(
-            'Product Info',
-            `Name: ${productName}\nEco-Score: ${ecoscore.toUpperCase()}`,
-            [
-              {
-                text: 'Scan Again',
-                onPress: () => setIsScanning(true),
-              },
-              {
-                text: 'OK',
-                style: 'cancel',
-              },
-            ]
-          );
+          const product = data.product;
+          const productName = product.product_name || 'Unknown Product';
+          const ecoscoreGrade = product.ecoscore_grade?.toUpperCase() || 'N/A';
+          const ecoscoreScore = product.ecoscore_score ?? 'N/A';
+          const packaging = product.packaging || 'Not specified';
+          const carbonImpact = product.environment_impact_level_tags?.[0]?.toUpperCase() || 'Unknown';
+          const image_url = product.image_url;
+          const ingredients = product.ingredients?.map(ing => ing.text) || [];
+        
+          navigation.navigate('ProductDetails', {
+            productName,
+            ecoscoreGrade,
+            ecoscoreScore,
+            packaging,
+            carbonImpact,
+            image_url,
+            ingredients,
+          });
+        
         } else {
           Alert.alert(
             'Product Not Found',

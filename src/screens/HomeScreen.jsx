@@ -10,81 +10,7 @@ import {
   StatusBar 
 } from 'react-native';
 
-const sampleProducts = [
-  {
-    id: 1,
-    name: 'xyz',
-    category: 'Vegan',
-    price: '$19.99',
-    rating: 4.5,
-    description: 'A sustainable and eco-friendly product that helps reduce environmental impact.',
-    ingredients: ['Organic ingredient 1', 'Natural ingredient 2', 'Eco-friendly ingredient 3'],
-    sustainability: {
-      score: 8.5,
-      features: ['Eco-friendly packaging', 'Sustainable sourcing', 'Carbon neutral'],
-    },
-    nutritionalInfo: {
-      calories: '120 kcal',
-      protein: '5g',
-      carbs: '15g',
-      fats: '4g',
-    },
-  },
-  {
-    id: 2,
-    name: 'skin care',
-    category: 'Cheap Eat',
-    price: '$24.99',
-    rating: 4.8,
-    description: 'Natural and organic skincare product for all skin types.',
-    ingredients: ['Aloe Vera', 'Vitamin E', 'Natural oils'],
-    sustainability: {
-      score: 9.0,
-      features: ['Recyclable packaging', 'Cruelty-free', 'Natural ingredients'],
-    },
-    nutritionalInfo: {
-      calories: '0 kcal',
-      protein: '0g',
-      carbs: '0g',
-      fats: '0g',
-    },
-  },
-  {
-    id: 3,
-    name: 'Food products',
-    category: 'Italian',
-    price: '$15.99',
-    rating: 4.2,
-    description: 'Authentic Italian food product made with traditional recipes.',
-    ingredients: ['Durum wheat', 'Fresh herbs', 'Olive oil'],
-    sustainability: {
-      score: 7.5,
-      features: ['Local sourcing', 'Traditional methods', 'Minimal processing'],
-    },
-    nutritionalInfo: {
-      calories: '200 kcal',
-      protein: '8g',
-      carbs: '25g',
-      fats: '6g',
-    },
-  },
-];
-
 export default function HomeScreen({ navigation }) {
-  const renderProductCard = (product) => (
-    <TouchableOpacity 
-      key={product.id}
-      style={styles.productCard}
-      onPress={() => navigation.navigate('ProductDetail', { product })}
-    >
-      <View style={styles.productImageContainer}>
-        <View style={styles.productImage} />
-      </View>
-      <Text style={styles.productTitle}>{product.name}</Text>
-      <Text style={styles.productSubtitle}>{product.category}</Text>
-    </TouchableOpacity>
-  );
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
@@ -116,7 +42,41 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.sectionSubtitle}>These are the products which are best</Text>
           
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.productsScroll}>
-            {sampleProducts.map(product => renderProductCard(product))}
+            {/* Product 1 */}
+            <View style={styles.productCard}>
+              <View style={styles.productImageContainer}>
+                <View style={styles.productImage} />
+              </View>
+              <Text style={styles.productTitle}>xyz</Text>
+              <Text style={styles.productSubtitle}>dummy</Text>
+            </View>
+            
+            {/* Product 2 */}
+            <View style={styles.productCard}>
+              <View style={styles.productImageContainer}>
+                <View style={styles.productImage} />
+              </View>
+              <Text style={styles.productTitle}>skin care</Text>
+              <Text style={styles.productSubtitle}>dummy</Text>
+            </View>
+            
+            {/* Product 3 */}
+            <View style={styles.productCard}>
+              <View style={styles.productImageContainer}>
+                <View style={styles.productImage} />
+              </View>
+              <Text style={styles.productTitle}>Food products</Text>
+              <Text style={styles.productSubtitle}>dummy</Text>
+            </View>
+            
+            {/* Product 4 */}
+            <View style={styles.productCard}>
+              <View style={styles.productImageContainer}>
+                <View style={styles.productImage} />
+              </View>
+              <Text style={styles.productTitle}>F</Text>
+              <Text style={styles.productSubtitle}>B</Text>
+            </View>
           </ScrollView>
         </View>
         
