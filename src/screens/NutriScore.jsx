@@ -1,94 +1,80 @@
-import React, { useState } from "react";
-import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 
-const products = [
-  {
-    id: "1",
-    name: "lentils goya",
-    image: require("../Images/soya.jpg"), // Replace with actual image
-  },
-  {
-    id: "2",
-    name: "amul paneer",
-    image: require("../Images/paneer.jpg"), // Replace with actual image
-  },
-  {
-    id: "3",
-    name: "Naturals, Pinto Beans - Meijer",
-    image: require("../Images/best_green_score.jpg"), // Replace with actual image
-  },
-  {
-    id: "4",
-    name: "Blackeye peas - Schnucks - 16 oz",
-    image: require("../Images/best_green_score.jpg"), // Replace with actual image
-  },
-];
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const ProductCard = ({ item }) => {
-  // Only "lentils goya" (id === "1") will have details to toggle
-  const [showDetails, setShowDetails] = useState(false);
+  useEffect(() => {
+    fetch("https://world.openfoodfacts.org/api/v2/search?fields=product_name,brands,code,packaging,image_url,nutrition_grades,ecoscore_grade,quantity&sort_by=nutri_score")
+      .then((response) => response.json())
+      .then((data) => {
+        // Filter products that have images
+        const filteredProducts = data.products.filter((item) => item.image_url);
+        setProducts(filteredProducts);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, []);
 
-  const handlePress = () => {
-    // Toggle details on press
-    setShowDetails(!showDetails);
-  };
+  if (loading) {
+    return <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />;
+  }
 
-  return (
-    <View style={styles.card}>
-      <TouchableOpacity onPress={handlePress}>
-        <Image source={item.image} style={styles.image} />
-      </TouchableOpacity>
-      <Text style={styles.text}>{item.name}</Text>
-      {/* Only show details for "lentils goya" */}
-      {showDetails && item.id === "1" && (
-        <View style={styles.detailsContainer}>
-          <Text style={styles.detailText}>
-            Barcode: 0041331023061 (EAN / EAN-13) or 041331023061 (UPC / UPC-A)
-          </Text>
-          <Text style={styles.detailText}>Quantity: 397 g</Text>
-          <Text style={styles.detailText}>Packaging: Pp-bag</Text>
-          <Text style={styles.detailText}>Brands: Goya</Text>
-          <Text style={styles.detailText}>Brand owner: Goya Foods, Inc.</Text>
-          <Text style={styles.detailText}>
-            Categories: Plant-based foods and beverages, Plant-based foods, Fruits and vegetables based foods, Legumes and their products, Legumes, Seeds, Vegetables based foods, Legume seeds, Vegetables, Pulses, Lentils, Mixed vegetables
-          </Text>
-          <Text style={styles.detailText}>Countries where sold: United States</Text>
-          <Text style={[styles.detailText, { marginTop: 5, fontWeight: "bold" }]}>
-            NUTRITIONAL FACTS
-          </Text>
-          <Text style={styles.detailText}>
-            Energy: 1,490 kj (356 kcal) per 100 g / 669 kj (160 kcal) per serving
-          </Text>
-          <Text style={styles.detailText}>
-            Fat: 0 g | Saturated fat: 0 g | Trans fat: 0 g
-          </Text>
-          <Text style={styles.detailText}>Cholesterol: 0 mg</Text>
-          <Text style={styles.detailText}>
-            Carbohydrates: 64.4 g | Sugars: 2.22 g | Fiber: 11.1 g
-          </Text>
-          <Text style={styles.detailText}>
-            Proteins: 24.4 g | Salt: 0 g
-          </Text>
-          <Text style={styles.detailText}>
-            Vitamin A: 0 µg | Vitamin C: 0 mg
-          </Text>
-          <Text style={styles.detailText}>
-            Potassium: 678 mg | Calcium: 44.4 mg | Iron: 6 mg
-          </Text>
-        </View>
-      )}
-    </View>
-  );
-};
-
-const NutriScore = () => {
   return (
     <View style={styles.container}>
       <FlatList
         data={products}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.code}
+        numColumns={2} // Two-column layout
+        columnWrapperStyle={styles.row} // Styling for the row
         renderItem={({ item }) => <ProductCard item={item} />}
       />
+    </View>
+  );
+};
+
+const ProductCard = ({ item }) => {
+  const [showDetails, setShowDetails] = useState(false);
+
+  return (
+    <View style={styles.card}>
+      <Image source={{ uri: item.image_url }} style={styles.image} />
+      <Text style={styles.text}>{item.product_name || "No Name"}</Text>
+      <TouchableOpacity style={styles.button} onPress={() => setShowDetails(!showDetails)}>
+        <Text style={styles.buttonText}>{showDetails ? "Hide Info" : "View Info"}</Text>
+      </TouchableOpacity>
+      {showDetails && (
+        <View style={styles.detailsContainer}>
+          <View style={styles.detailsRow}>
+            <Text style={styles.detailText}>📦 Brand:</Text>
+            <Text style={styles.detailValue}>{item.brands || "Unknown"}</Text>
+          </View>
+          <View style={styles.detailsRow}>
+            <Text style={styles.detailText}>🏷️ Barcode:</Text>
+            <Text style={styles.detailValue}>{item.code}</Text>
+          </View>
+          <View style={styles.detailsRow}>
+            <Text style={styles.detailText}>🥗 Nutri-Score:</Text>
+            <Text style={styles.detailValue}>{item.nutrition_grades?.toUpperCase() || "N/A"}</Text>
+          </View>
+          <View style={styles.detailsRow}>
+            <Text style={styles.detailText}>🌍 Eco-Score:</Text>
+            <Text style={styles.detailValue}>{item.ecoscore_grade?.toUpperCase() || "N/A"}</Text>
+          </View>
+          <View style={styles.detailsRow}>
+            <Text style={styles.detailText}>📦 Packaging:</Text>
+            <Text style={styles.detailValue}>{item.packaging || "N/A"}</Text>
+          </View>
+          <View style={styles.detailsRow}>
+            <Text style={styles.detailText}>⚖️ Quantity:</Text>
+            <Text style={styles.detailValue}>{item.quantity || "N/A"}</Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 };
@@ -99,12 +85,16 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff",
   },
+  row: {
+    justifyContent: "space-between",
+  },
   card: {
     backgroundColor: "#f8f8f8",
     padding: 10,
     marginVertical: 8,
     borderRadius: 10,
     alignItems: "center",
+    width: "48%", // Two columns layout
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -121,18 +111,45 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    marginBottom: 5,
+  },
+  button: {
+    backgroundColor: "#007BFF",
+    padding: 6,
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "bold",
   },
   detailsContainer: {
-    marginTop: 10,
+    marginTop: 5,
     backgroundColor: "#eaeaea",
-    padding: 10,
+    padding: 8,
     borderRadius: 8,
+    width: "100%",
+  },
+  detailsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 2,
   },
   detailText: {
     fontSize: 12,
     color: "#333",
-    marginBottom: 3,
+    fontWeight: "bold",
+  },
+  detailValue: {
+    fontSize: 12,
+    color: "#555",
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
-export default NutriScore;
+export default ProductList;
