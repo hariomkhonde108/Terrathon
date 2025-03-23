@@ -100,12 +100,12 @@ export default function HomeScreen({ navigation }) {
           </ScrollView>
         </View>
         
-        {/* Product Types Section */}
+        {/* Product Types Section *
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Product types</Text>
           
           <View style={styles.categoryContainer}>
-            {/* Category 1 */}
+            {/* Category 1 *
             <TouchableOpacity 
               style={styles.categoryCard}
               onPress={() => navigation.navigate('MainProducts')}
@@ -113,12 +113,12 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.categoryText}>All Products</Text>
             </TouchableOpacity>
             
-            {/* Category 2 */}
+            {/* Category 2 *
             <View style={styles.categoryCard}>
               <Text style={styles.categoryText}>Category</Text>
             </View>
             
-            {/* Category 3 */}
+            {/* Category 3 *
             <View style={styles.categoryCard}>
               <Text style={styles.categoryText}>Category</Text>
             </View>
