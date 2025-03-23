@@ -1,95 +1,109 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  ScrollView, 
-  Image, 
-  StyleSheet, 
-  TouchableOpacity, 
-  SafeAreaView, 
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
   StatusBar,
-  ImageBackground 
+  ImageBackground,
 } from 'react-native';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
-      
+
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity>
           <Text style={styles.iconText}>☰</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Bit Bytess</Text>
-        <TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DevelopersScreen')}>
           <Text style={styles.iconText}>🔍</Text>
         </TouchableOpacity>
       </View>
-      
+
       <ScrollView style={styles.scrollView}>
         {/* Hero Banner */}
         <View style={styles.heroBanner}>
-          <ImageBackground 
+          <ImageBackground
             source={require('../Images/heroimage.jpg')}
             style={styles.heroImage}
             resizeMode="cover"
           />
           <View style={styles.heroOverlay}>
             <Text style={styles.heroTitle}>let's go green</Text>
-            <Text style={styles.heroSubtitle}>Trust the process when we aprove</Text>
+            <Text style={styles.heroSubtitle}>
+              Trust the process when we aprove
+            </Text>
           </View>
         </View>
-        
+
         {/* Top Rated Products Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Top Rated Products</Text>
-          <Text style={styles.sectionSubtitle}>These are the products which are best</Text>
-          
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.productsScroll}>
+          <Text style={styles.sectionSubtitle}>
+            These are the products which are best
+          </Text>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.productsScroll}>
             {/* Product 1 */}
             <TouchableOpacity onPress={() => navigation.navigate('NutriScore')}>
-  <View style={styles.productCard}>
-    <View style={styles.productImageContainer}>
-      <Image 
-        source={require('../Images/best_nutri_score.jpg')}
-        style={styles.productImage}
-        resizeMode="cover"
-      />
-    </View>
-    <Text style={styles.productTitle}>Products with the best Nutri score</Text>
-  </View>
-</TouchableOpacity>
+              <View style={styles.productCard}>
+                <View style={styles.productImageContainer}>
+                  <Image
+                    source={require('../Images/best_nutri_score.jpg')}
+                    style={styles.productImage}
+                    resizeMode="cover"
+                  />
+                </View>
+                <Text style={styles.productTitle}>
+                  Products with the best Nutri score
+                </Text>
+              </View>
+            </TouchableOpacity>
 
-            
-<TouchableOpacity onPress={() => navigation.navigate('Green')}>
-  <View style={styles.productCard}>
-    <View style={styles.productImageContainer}>
-      <Image 
-        source={require('../Images/best_green_score.jpg')}
-        style={styles.productImage}
-        resizeMode="cover"
-      />
-    </View>
-    <Text style={styles.productTitle}>Products with the best Green score</Text>
-  </View>
-</TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Green')}>
+              <View style={styles.productCard}>
+                <View style={styles.productImageContainer}>
+                  <Image
+                    source={require('../Images/best_green_score.jpg')}
+                    style={styles.productImage}
+                    resizeMode="cover"
+                  />
+                </View>
+                <Text style={styles.productTitle}>
+                  Products with the best Green score
+                </Text>
+              </View>
+            </TouchableOpacity>
             {/* Product 3 */}
             <View style={styles.productCard}>
               <View style={styles.productImageContainer}>
-                <Image 
+                <Image
                   source={require('../Images/sustaniable_image.jpg')}
                   style={styles.productImage}
                   resizeMode="cover"
                 />
               </View>
-              <Text style={styles.productTitle}>Compostable & Biodegradable Items</Text>
+              <Text style={styles.productTitle}>
+                Compostable & Biodegradable Items
+              </Text>
             </View>
-            
+
             {/* Product 4 */}
             <View style={styles.productCard}>
               <View style={styles.productImageContainer}>
-                <Image 
+                <Image
                   source={require('../Images/most_scanned.jpeg')}
                   style={styles.productImage}
                   resizeMode="cover"
@@ -99,7 +113,7 @@ export default function HomeScreen({ navigation }) {
             </View>
           </ScrollView>
         </View>
-        
+
         {/* Product Types Section *
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Product types</Text>
@@ -126,10 +140,9 @@ export default function HomeScreen({ navigation }) {
         </View>
         
         {/* Barcode Scanner */}
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.barcodeSection}
-          onPress={() => navigation.navigate('Camera')}
-        >
+          onPress={() => navigation.navigate('Camera')}>
           <View style={styles.barcodeFrame}>
             <View style={styles.barcodeCorner1} />
             <View style={styles.barcodeCorner2} />
@@ -316,4 +329,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-}); 
+});

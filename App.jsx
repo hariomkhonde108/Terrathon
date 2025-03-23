@@ -7,6 +7,7 @@ import ProductDetailsScreen from './src/screens/ProductDetailsScreen'; // ✅ im
 import MainProducts from './src/screens/MainProducts';
 import NutriScore from './src/screens/NutriScore';
 import Green from './src/screens/Green';
+import DevelopersScreen from './src/screens/DevelopersScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,7 @@ export default function App() {
           component={Green}
           options={{title: 'Green'}} 
         />
+         <Stack.Screen name="DevelopersScreen" component={DevelopersScreen} options={{title: 'Developers'}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
