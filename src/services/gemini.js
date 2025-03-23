@@ -14,7 +14,7 @@ const fetchProductDetails = async (productName) => {
       const product = data.products[0];
       return {
         ecoScore: product.ecoscore_grade || 'Unknown',
-        packaging: product.packaging || 'Not specified',
+        packaging: product.packaging || 'Plastic',
         carbonFootprint: product.carbon_footprint_per_100g || 'Unknown',
         ingredients: product.ingredients_text || 'Not specified',
         brand: product.brands || 'Unknown'

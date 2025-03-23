@@ -117,7 +117,7 @@ export default function ProductDetailsScreen({ route }) {
 
         <View style={styles.infoRow}>
           <Text style={styles.label}>♻️ Packaging:</Text>
-          <Text style={styles.value}>{packaging}</Text>
+          <Text style={styles.value}>{packaging?.trim() ? packaging : "Plastic"}</Text>
         </View>
 
         <View style={styles.infoRow}>

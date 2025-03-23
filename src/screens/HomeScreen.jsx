@@ -25,7 +25,7 @@ export default function HomeScreen({navigation}) {
 
         <TouchableOpacity
           onPress={() => navigation.navigate('DevelopersScreen')}>
-          <Text style={styles.iconText}>🔍</Text>
+          <Text style={styles.iconText}>Devs</Text>
         </TouchableOpacity>
       </View>
 

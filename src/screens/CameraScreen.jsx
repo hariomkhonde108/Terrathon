@@ -27,7 +27,7 @@ export default function CameraScreen({ navigation }) {
           const productName = product.product_name || 'Unknown Product';
           const ecoscoreGrade = product.ecoscore_grade?.toUpperCase() || 'N/A';
           const ecoscoreScore = product.ecoscore_score ?? 'N/A';
-          const packaging = product.packaging || 'Not specified';
+          const packaging = product.packaging || 'Plastic';
           const carbonImpact = product.environment_impact_level_tags?.[0]?.toUpperCase() || 'Unknown';
           const image_url = product.image_url;
           const ingredients = product.ingredients?.map(ing => ing.text) || [];
