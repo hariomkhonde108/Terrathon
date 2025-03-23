@@ -8,7 +8,8 @@ import MainProducts from './src/screens/MainProducts';
 import NutriScore from './src/screens/NutriScore';
 import Green from './src/screens/Green';
 import DevelopersScreen from './src/screens/DevelopersScreen';
-
+import Sustainable from './src/screens/Sustainable';
+import MostScanned from './src/screens/mostscanned';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -56,6 +57,8 @@ export default function App() {
           options={{title: 'Green'}} 
         />
          <Stack.Screen name="DevelopersScreen" component={DevelopersScreen} options={{title: 'Developers'}} />
+         <Stack.Screen name="Sustainable" component={Sustainable} options={{title: 'Sustainable'}} />
+          <Stack.Screen name="MostScanned" component={MostScanned} options={{title: 'Most Scanned'}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

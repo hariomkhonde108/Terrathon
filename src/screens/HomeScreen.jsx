@@ -87,30 +87,36 @@ export default function HomeScreen({navigation}) {
               </View>
             </TouchableOpacity>
             {/* Product 3 */}
-            <View style={styles.productCard}>
-              <View style={styles.productImageContainer}>
-                <Image
-                  source={require('../Images/sustaniable_image.jpg')}
-                  style={styles.productImage}
-                  resizeMode="cover"
-                />
-              </View>
-              <Text style={styles.productTitle}>
-                Compostable & Biodegradable Items
-              </Text>
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('Sustainable')}>
+  <View style={styles.productCard}>
+    <View style={styles.productImageContainer}>
+      <Image
+        source={require('../Images/sustaniable_image.jpg')}
+        style={styles.productImage}
+        resizeMode="cover"
+      />
+    </View>
+    <Text style={styles.productTitle}>
+      Compostable & Biodegradable Items
+    </Text>
+  </View>
+</TouchableOpacity>
 
             {/* Product 4 */}
-            <View style={styles.productCard}>
-              <View style={styles.productImageContainer}>
-                <Image
-                  source={require('../Images/most_scanned.jpeg')}
-                  style={styles.productImage}
-                  resizeMode="cover"
-                />
-              </View>
-              <Text style={styles.productTitle}>Most scanned products</Text>
-            </View>
+            {/* Product 4 */}
+<TouchableOpacity onPress={() => navigation.navigate('MostScanned')}>
+  <View style={styles.productCard}>
+    <View style={styles.productImageContainer}>
+      <Image
+        source={require('../Images/most_scanned.jpeg')}
+        style={styles.productImage}
+        resizeMode="cover"
+      />
+    </View>
+    <Text style={styles.productTitle}>Most scanned products</Text>
+  </View>
+</TouchableOpacity>
+
           </ScrollView>
         </View>
 
